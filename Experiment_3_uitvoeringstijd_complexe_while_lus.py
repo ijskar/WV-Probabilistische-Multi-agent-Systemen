@@ -1,4 +1,4 @@
-from Experiments_Program.problog_controller import *
+from problog_controller import *
 import matplotlib.pyplot as plt
 import time
 

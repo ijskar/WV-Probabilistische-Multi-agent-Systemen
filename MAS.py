@@ -1,6 +1,6 @@
 import random as rnd
 
-from Experiments_Program.problog_controller import *
+from problog_controller import *
 from matplotlib import colors
 from matplotlib import pyplot as plt
 import time

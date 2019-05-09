@@ -6,7 +6,7 @@ import re
 from matplotlib import colors
 from matplotlib import pyplot as plt
 
-from Experiments_Program.MAS import *
+from MAS import *
 
 size = 9
 

@@ -1,4 +1,4 @@
-from Experiments_Program.MAS import *
+from MAS import *
 import re
 from matplotlib import colors
 from matplotlib import pyplot as plt

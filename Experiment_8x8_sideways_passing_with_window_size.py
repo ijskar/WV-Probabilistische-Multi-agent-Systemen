@@ -1,6 +1,6 @@
 import re
 
-from Experiments_Program.MAS import *
+from MAS import *
 
 size = 8
 

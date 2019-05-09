@@ -1,4 +1,4 @@
-from Experiments_Program.problog_controller import *
+from problog_controller import *
 import matplotlib.pyplot as plt
 
 moveToTable1 = ActionCase("moveToTable", ["clear(A)", "on(A,B)"], ["table(A)", "clear(B)"], ["on(A,B)"], ["A", "B"], 0.4, 1)

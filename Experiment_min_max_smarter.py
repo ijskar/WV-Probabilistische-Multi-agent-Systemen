@@ -2,7 +2,7 @@ import operator
 from itertools import *
 from random import *
 import re
-from Experiments_Program.MAS import *
+from MAS import *
 
 size = 9
 
