@@ -127,7 +127,7 @@ def createAgentPlan(currentState, agentNumber):
         #A dictionary's keys cannot be lists (plans are lists), so we store the plans in an array, and associate each plan's index with
         #the plan's corresponding probability in the planProbabilityDictionary.
         listOfPlans.append(plan)
-        result = endStateSatisfiesQuery(queryLessProgramString, currentState, planToPlanString(plan), satisfiesBody)
+        result = endStateSatisfiesQuery(queryLessProgramString, currentState, plan, satisfiesBody)
         key, value = result.popitem()
         planProbabilityDictionary[i] = value
         i += 1
@@ -140,8 +140,8 @@ def createAgentPlan(currentState, agentNumber):
     #Return the first action of the chosen plan, i.e. the action that maximizes/minimizes the probability of colliding.
     return [listOfPlans[chosenPlanIndex][0]]
 
-currentState = "[at(1,3,3),at(2,5,3)]"
-matrix = stateToMatrix(currentState)
+currentState = ["at(1,3,3)","at(2,5,3)"]
+matrix = stateToMatrix(listOfStringsToStringOfList(currentState))
 
 plt.figure(figsize=(10, 10))
 plt.axis('off')
@@ -153,14 +153,15 @@ plt.axis('off')
 plt.title("Step 0")
 
 tempSatisfiesBody = "\tmember(at(1,X,Y),State),\n\tmember(at(2,X,Y),State)."
-mas = MAS(actionCaseList, failCondition, currentState, [], tempSatisfiesBody)
+mas = MAS(actionCaseList, failCondition, currentState, tempSatisfiesBody)
 
 
 for i in range(1,5):
     #Agent one makes a move.
-    mas.plan = createAgentPlan(currentState, 1)
-    firstAction = mas.plan[0]
-    print(mas.plan)
+    plan = createAgentPlan(currentState, 1)
+    mas.agentList = [Agent(1, plan)]
+    firstAction = plan[0]
+    print(plan)
     currentState = mas.run()[0]
     mas.beginState = currentState
     matrix = stateToMatrix(currentState)
@@ -172,9 +173,10 @@ for i in range(1,5):
     plt.title("Step " + str(i) + ": " + firstAction)
 
     #Agent two makes a move.
-    mas.plan = createAgentPlan(currentState, 2)
-    firstAction = mas.plan[0]
-    print(mas.plan)
+    plan = createAgentPlan(currentState, 2)
+    mas.agentList = [Agent(2, plan)]
+    firstAction = plan[0]
+    print(plan)
     currentState = mas.run()[0]
     mas.beginState = currentState
     matrix = stateToMatrix(currentState)

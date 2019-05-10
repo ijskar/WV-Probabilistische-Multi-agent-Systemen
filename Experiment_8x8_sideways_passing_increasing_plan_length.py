@@ -62,7 +62,9 @@ def visualizeState(state):
 #Probably best to not use this experiment, as it basically shows the same thing experiment_8x8_sideways_passing shows.
 for i in range(0,3):
     print("New iteration starts.")
-    beginState = "[at(1," + str(3-i) + ",3),at(2,"+ str(5+i) +",4)]"
+    beginState = ["at(1," + str(3-i) + ",3)", "at(2,"+ str(5+i) +",4)"]
     mas = MAS(list, failCondition, beginState,
-              (i+1)*["right(1)", "left(2)"], satisfiesBody, visualizeState)
+              satisfiesBody, visualizeState)
+    mas.addAgent(1, (i+1)*["right(1)"])
+    mas.addAgent(2, (i+1)*["left(2)"])
     mas.run()

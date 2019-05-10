@@ -10,8 +10,7 @@ moveFromTableOn2 = ActionCase("moveFromTableOn", ["clear(A)", "clear(C)", "table
 actionsList = [moveToTable1,moveToTable2,moveFromBlockOn1,moveFromBlockOn2,moveFromBlockOn3,moveFromTableOn1,moveFromTableOn2]
 
 querylessProgramString = actionsToProblogProgram(actionsList)
-print(querylessProgramString)
-beginState = "[table(a), table(e), table(g), table(f), on(b,a),on(c,b),on(d,c), clear(d), clear(e), clear(f), clear(g)]"
-plan = "[moveToTable(d,c), moveFromBlockOn(c, b, e), moveFromTableOn(f, g), moveFromBlockOn(b, a, f)]"
-endStateContainsQuery(querylessProgramString, beginState, plan,"on(b,f)")
-endStateContainsQuery(querylessProgramString, beginState, plan,"[on(b,f), on(f,g)]")
+beginState = ["table(a)", "table(e)", "table(g)", "table(f)", "on(b,a)","on(c,b)","on(d,c)", "clear(d)", "clear(e)", "clear(f)", "clear(g)"]
+plan = ["moveToTable(d,c)", "moveFromBlockOn(c, b, e)", "moveFromTableOn(f, g)", "moveFromBlockOn(b, a, f)"]
+endStateContainsQuery(querylessProgramString, beginState, plan,["on(b,f)"])
+endStateContainsQuery(querylessProgramString, beginState, plan,["on(b,f)", "on(f,g)"])

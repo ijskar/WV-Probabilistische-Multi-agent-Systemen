@@ -11,14 +11,13 @@ moveFromTableOn2 = ActionCase("moveFromTableOn", ["clear(A)", "clear(C)", "table
 actionsList = [moveToTable1,moveToTable2,moveFromBlockOn1,moveFromBlockOn2,moveFromBlockOn3,moveFromTableOn1,moveFromTableOn2]
 
 querylessProgramString = actionsToProblogProgram(actionsList)
-beginState = "[table(a), table(e), table(g), table(f), on(b,a),on(c,b),on(d,c), clear(d), clear(e), clear(f), clear(g)]"
+print(querylessProgramString)
+beginState = ["table(a)", "table(e)", "table(g)", "table(f)", "on(b,a)","on(c,b)","on(d,c)", "clear(d)", "clear(e)", "clear(f)", "clear(g)"]
 list = []
 for i in range(1,14):
-    plan = "[while(falseInState(clear(c)), [moveToTable(d,c)]," + str(i) + ")," \
-                                                                           "while(falseInState(clear(b)), [moveToTable(c,b)]," + str(
-        i) + ")," \
-             "while(falseInState(clear(a)), [moveToTable(b,a)]," + str(i) + ")]"
-    result = endStateContainsQuery(querylessProgramString, beginState, plan,"clear(a)")
+    plan = ["while(falseInState(clear(c)), [moveToTable(d,c)]," + str(i) + ")", "while(falseInState(clear(b)), [moveToTable(c,b)]," +
+            str(i) + ")", "while(falseInState(clear(a)), [moveToTable(b,a)]," + str(i) + ")"]
+    result = endStateContainsQuery(querylessProgramString, beginState, plan,["clear(a)"])
     for key in result:
         list.append(result[key])
 plt.plot(range(1,len(list)+1), list, '-g')

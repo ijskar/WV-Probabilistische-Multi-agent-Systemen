@@ -12,15 +12,13 @@ moveFromTableOn2 = ActionCase("moveFromTableOn", ["clear(A)", "clear(C)", "table
 actionsList = [moveToTable1,moveToTable2,moveFromBlockOn1,moveFromBlockOn2,moveFromBlockOn3,moveFromTableOn1,moveFromTableOn2]
 
 querylessProgramString = actionsToProblogProgram(actionsList)
-beginState = "[table(a), table(e), table(g), table(f), on(b,a),on(c,b),on(d,c), clear(d), clear(e), clear(f), clear(g)]"
+beginState = ["table(a)", "table(e)", "table(g)", "table(f)", "on(b,a)","on(c,b)","on(d,c)", "clear(d)", "clear(e)", "clear(f)", "clear(g)"]
 list = []
 for i in range(1,23):
-    plan = "[while(falseInState(clear(c)), [moveToTable(d,c)]," + str(i) + ")," \
-                                                                           "while(falseInState(clear(b)), [moveToTable(c,b)]," + str(
-        i) + ")," \
-             "while(falseInState(clear(a)), [moveToTable(b,a)]," + str(i) + ")]"
+    plan = ["while(falseInState(clear(c)), [moveToTable(d,c)]," + str(i) + ")", "while(falseInState(clear(b)), [moveToTable(c,b)]," +
+            str(i) + ")", "while(falseInState(clear(a)), [moveToTable(b,a)]," + str(i) + ")"]
     t = time.time()
-    result = endStateContainsQuery(querylessProgramString, beginState, plan,"clear(a)")
+    result = endStateContainsQuery(querylessProgramString, beginState, plan,["clear(a)"])
     elapsed = time.time() - t
     list.append(elapsed)
 

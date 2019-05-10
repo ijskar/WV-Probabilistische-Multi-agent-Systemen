@@ -132,7 +132,7 @@ def createAgentPlan(currentState, agentNumber):
             #insert the other agent's move into the plan
             newPlan = plan.copy()
             newPlan.insert(1,action)
-            result = endStateSatisfiesQuery(queryLessProgramString, currentState, planToPlanString(newPlan), satisfiesBody)
+            result = endStateSatisfiesQuery(queryLessProgramString, currentState, newPlan, satisfiesBody)
             key, value = result.popitem()
             listOfProbabilities.append(value)
         #Assuming that the other agent will maximize its chance of success,
@@ -149,19 +149,21 @@ def createAgentPlan(currentState, agentNumber):
     #Return the first action of the chosen plan, i.e. the action that maximizes/minimizes the probability of colliding.
     return [listOfPlans[chosenPlanIndex][0]]
 
-currentState = "[at(1,4,4),at(2,5,3)]"
-matrix = stateToString(currentState)
+currentState = ["at(1,4,4)","at(2,5,3)"]
+matrix = stateToString(listOfStringsToStringOfList(currentState))
 tempSatisfiesBody = "\tmember(at(1,X,Y),State),\n\tmember(at(2,X,Y),State)."
-mas = MAS(actionCaseList, failCondition, currentState, [], tempSatisfiesBody, stateToString)
+mas = MAS(actionCaseList, failCondition, currentState, tempSatisfiesBody, stateToString)
 for i in range(10):
     #Agent one makes a move.
-    mas.plan = createAgentPlan(currentState, 1)
-    print(mas.plan)
+    plan = createAgentPlan(currentState, 1)
+    mas.agentList = [Agent(1,plan)]
+    print(plan)
     currentState = mas.run()[0]
     mas.beginState = currentState
 
     #Agent two makes a move.
-    mas.plan = createAgentPlan(currentState, 2)
+    plan = createAgentPlan(currentState, 2)
+    mas.agentList = [Agent(2, plan)]
     print(mas.plan)
     currentState = mas.run()[0]
     mas.beginState = currentState

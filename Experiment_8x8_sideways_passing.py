@@ -60,8 +60,9 @@ def visualizeState(state):
     plt.savefig(str(time.time()) + ".png")
 
 
-
-mas = MAS(list, failCondition, "[at(1,0,3),at(2,6,4)]", ["right(1)", "left(2)", "right(1)", "left(2)", "right(1)", "left(2)"], satisfiesBody, visualizeState)
+mas = MAS(list, failCondition, ["at(1,0,3)","at(2,6,4)"], satisfiesBody, visualizeState)
+mas.addAgent(1, ["right(1)", "right(1)", "right(1)"])
+mas.addAgent(2, ["left(2)", "left(2)", "left(2)"])
 
 resultOfMas = mas.run()
 print("Endstate after executing plan: " + str(resultOfMas[0]))
