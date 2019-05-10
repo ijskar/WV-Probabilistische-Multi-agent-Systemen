@@ -9,4 +9,4 @@ Dependencies:
   
     ProbLog 2
   
-    The PySDD python package
+    The PySDD Python package
